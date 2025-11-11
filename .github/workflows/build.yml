@@ -5,8 +5,9 @@ on:
     - refs/heads/*
     tags:
     - '*'
-  pull-request:
-    branches: [develop, edge]
+  pull_request:
+    branches:
+    - '*'
   workflow_dispatch:
 env:
   group: brewblox
