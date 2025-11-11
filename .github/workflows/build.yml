@@ -6,8 +6,7 @@ on:
     tags:
     - '*'
   pull-request:
-    branches:
-    - '*'
+    branches: [develop, edge]
   workflow_dispatch:
 env:
   group: brewblox
