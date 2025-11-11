@@ -118,8 +118,8 @@ On reconnect, always restore state via `await self.restore_timer()`.
 
 ## Files to Know
 
-- `pyproject.toml`: Poetry config, Python 3.7+, GPL-3.0 license
+ - `pyproject.toml`: Poetry config, Python 3.13+, GPL-3.0 license
 - `poetry.toml`: Poetry settings
 - `tox.ini`: Pytest config (flake8 inline, 120 char limit, coverage reporting)
-- `docker/Dockerfile`: Python 3.7 slim base, poetry install, run service
+ - `docker/Dockerfile`: Python 3.13 slim base, poetry install, run service
 - `test/`: All unit tests with sample JSON fixtures for API responses

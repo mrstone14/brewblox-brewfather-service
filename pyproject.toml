@@ -7,10 +7,12 @@ license = "GPL-3.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4"
+python = ">=3.13,<4"
 brewblox-service = "^0.33.0"
 brewblox-spark-api = "^0.2.0"
 marshmallow-enum = "^1.5.1"
+aiohttp = "^3.8.5"
+multidict = "^6.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest-flake8 = "^1.0.7"
@@ -23,6 +25,7 @@ pytest = "^6.2.2"
 flake8-quotes = "^3.2.0"
 aresponses = "^2.1.4"
 mock = "^4.0.3"
+packaging = "^23.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
