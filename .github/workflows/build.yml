@@ -1,13 +1,8 @@
-
 on:
   push:
-    branches:
-    - refs/heads/*
-    tags:
-    - '*'
+    branches: ['**']
   pull_request:
-    branches:
-    - '*'
+    branches: [develop, edge]
   workflow_dispatch:
 env:
   group: brewblox
