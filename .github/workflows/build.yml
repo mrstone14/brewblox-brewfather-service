@@ -23,9 +23,7 @@ jobs:
     - name: Export build variables
       run: |
         BRANCH=$(echo ${{ github.ref }} | grep -oP "^refs/heads/\K.*")
-        TAG=${{ env.echo $BRANCH | tr '/' '-' | tr '[:upper:]' '[:lower:]' }}
         echo "##vso[task.setvariable variable=BRANCH]$BRANCH"
-        echo "##vso[task.setvariable variable=TAG]${{ env.TAG }}"
       shell: bash
     - name: Install dependencies
       run: |
@@ -48,6 +46,6 @@ jobs:
       shell: bash
       if: (succeeded() && variables.BRANCH)
     - name: Build Docker image
-      run: docker buildx build --tag ${{ env.DOCKER_REPO }}:${{ env.TAG }} --build-arg service_info="${{ env.git describe }} @ ${{ env.date }}" --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8 docker
+      run: docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8 docker
       shell: bash
       if: (succeeded() && variables['BRANCH'])
