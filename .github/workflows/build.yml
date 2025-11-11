@@ -4,44 +4,55 @@ on:
   pull_request:
     branches: [develop, edge]
   workflow_dispatch:
-env:
-  group: brewblox
+#env:
+#  group: brewblox
 jobs:
   build:
-    runs-on: Ubuntu-20.04
+    runs-on: Ubuntu-22.04
+    permissions:
+      packages: write
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - uses: docker/setup-qemu-action@v2
+    - uses: docker/setup-buildx-action@v2
+
+    - name: Get image metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ghcr.io/mrstone14/brewblox-brewfather-service
+
+    - name: ghcr.io login
+      uses: docker/login-action@v2
+      if: github.event_name != 'pull_request'
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Setup Python 3.7
       uses: actions/setup-python@v1
       with:
         python-version: 3.7
+
     - name: Export .env variables
       run: |
         set -o allexport; source .env; set +o allexport
         echo "##vso[task.setvariable variable=DOCKER_REPO]${{ env.DOCKER_REPO }}"
-      shell: bash
     - name: Export build variables
       run: |
         BRANCH=$(echo ${{ github.ref }} | grep -oP "^refs/heads/\K.*")
         echo "##vso[task.setvariable variable=BRANCH]$BRANCH"
-      shell: bash
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade pip
         pip install poetry
         poetry install
-      shell: bash
     - name: Run Pytest
       run: poetry run pytest
-      shell: bash
     - name: Prepare buildx
       run: curl -fsSL https://raw.githubusercontent.com/BrewBlox/deployed-images/develop/prepare_buildx.sh | bash
-      shell: bash
-    - name: Docker login
-      run: echo ${{ env.DOCKER_PASSWORD }} | docker login -u ${{ env.DOCKER_USER }} --password-stdin
-      shell: bash
     - name: Run before_build.sh script
       run: bash ./before_build.sh
-      shell: bash
     - name: Build Docker image
       run: docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8 docker
-      shell: bash
