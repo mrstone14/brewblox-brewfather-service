@@ -36,16 +36,12 @@ jobs:
     - name: Prepare buildx
       run: curl -fsSL https://raw.githubusercontent.com/BrewBlox/deployed-images/develop/prepare_buildx.sh | bash
       shell: bash
-      if: (succeeded() && variables.BRANCH)
     - name: Docker login
       run: echo ${{ env.DOCKER_PASSWORD }} | docker login -u ${{ env.DOCKER_USER }} --password-stdin
       shell: bash
-      if: (succeeded() && variables.BRANCH)
     - name: Run before_build.sh script
       run: bash ./before_build.sh
       shell: bash
-      if: (succeeded() && variables.BRANCH)
     - name: Build Docker image
       run: docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8 docker
       shell: bash
-      if: (succeeded() && variables['BRANCH'])
