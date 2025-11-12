@@ -4,7 +4,7 @@ on:
   push:
     branches: ["**"]
   pull_request:
-    branches: [develop, edge]
+    branches: [develop, edge, working]
   workflow_dispatch: {}
 
 env:
