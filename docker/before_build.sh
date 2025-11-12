@@ -19,3 +19,4 @@ cp -rf dist docker/
 # We want to install the exact same dependencies every build
 # Let poetry export a list of all dependencies to a format that Pip can use
 poetry export --without-hashes -f requirements.txt -o docker/requirements.txt
+c
