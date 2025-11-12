@@ -12,7 +12,7 @@ brewblox-service = "^0.33.0"
 brewblox-spark-api = "^0.2.0"
 marshmallow-enum = "^1.6.0"
 
-[tool.poetry.group.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest-flake8 = "^1.0.7"
 pytest-cov = "^2.11.1"
 pytest-mock = "^3.5.1"
